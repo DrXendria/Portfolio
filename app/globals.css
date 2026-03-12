@@ -1,0 +1,83 @@
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,300;0,400;0,500;0,600;0,700;0,900;1,400&family=Share+Tech+Mono&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --accent: #00d4ff;
+  --accent-glow: rgba(0,212,255,0.35);
+  --bg: #020b14;
+  --bg2: #030e1a;
+  --text: #e8f4f8;
+  --text-dim: rgba(232,244,248,0.45);
+  --border: rgba(0,212,255,0.15);
+}
+
+* { box-sizing: border-box; }
+
+/* Font — tüm sitede sabit */
+*, *::before, *::after {
+  font-family: 'Exo 2', sans-serif !important;
+}
+
+code, pre, kbd {
+  font-family: 'Share Tech Mono', monospace !important;
+}
+
+html {
+  scroll-behavior: smooth;
+  font-size: 18px;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  overflow-x: hidden;
+  cursor: none;
+}
+body * { cursor: none !important; }
+
+/* Scrollbar */
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: var(--bg2); }
+::-webkit-scrollbar-thumb { background: rgba(0,212,255,0.3); border-radius: 2px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0,212,255,0.6); }
+
+/* Scanlines */
+body::after {
+  content: '';
+  position: fixed; inset: 0; pointer-events: none; z-index: 9998;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 2px,
+    rgba(0,0,0,0.05) 2px, rgba(0,0,0,0.05) 4px
+  );
+}
+
+/* Cyber clip corners utility */
+.clip-cyber { clip-path: polygon(0 0, calc(100% - 16px) 0, 100% 16px, 100% 100%, 16px 100%, 0 calc(100% - 16px)); }
+.clip-cyber-sm { clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); }
+.clip-btn { clip-path: polygon(10px 0, 100% 0, calc(100% - 10px) 100%, 0 100%); }
+
+/* Neon text */
+.neon-text { text-shadow: 0 0 20px rgba(0,212,255,0.5), 0 0 40px rgba(0,212,255,0.2); }
+
+/* Grid bg */
+.cyber-grid-bg {
+  background-image:
+    linear-gradient(rgba(0,212,255,0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0,212,255,0.05) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* Tiptap prose */
+.tiptap-content h1 { font-size: 2rem; font-weight: 700; color: var(--text); margin: 1.5rem 0 1rem; }
+.tiptap-content h2 { font-size: 1.5rem; font-weight: 600; color: var(--accent); margin: 1.25rem 0 0.75rem; }
+.tiptap-content h3 { font-size: 1.25rem; font-weight: 600; color: var(--text); margin: 1rem 0 0.5rem; }
+.tiptap-content p { margin: 0.75rem 0; line-height: 1.8; color: var(--text-dim); }
+.tiptap-content ul, .tiptap-content ol { margin: 0.75rem 0; padding-left: 1.5rem; color: var(--text-dim); }
+.tiptap-content li { margin: 0.25rem 0; }
+.tiptap-content a { color: var(--accent); text-decoration: underline; }
+.tiptap-content code { background: rgba(0,212,255,0.1); padding: 0.1rem 0.4rem; border-radius: 2px; font-size: 0.9em; color: var(--accent); }
+.tiptap-content pre { background: rgba(0,0,0,0.4); border: 1px solid var(--border); padding: 1rem; border-radius: 4px; overflow-x: auto; margin: 1rem 0; }
+.tiptap-content blockquote { border-left: 3px solid var(--accent); padding-left: 1rem; margin: 1rem 0; opacity: 0.8; }
+.tiptap-content strong { color: var(--text); font-weight: 600; }
