@@ -19,7 +19,7 @@ export default function ProjectDetailClient({ project }: Props) {
       <Navbar />
       <article className="relative z-10 max-w-3xl mx-auto px-6 pt-28 pb-24">
         <Link href="/#projects" className="font-mono text-[10px] tracking-[3px] text-accent opacity-60 hover:opacity-100 transition-opacity mb-8 block">
-          ← {t('PROJELERe DÖN', 'BACK TO PROJECTS')}
+          ← {t('PROJELERE DÖN', 'BACK TO PROJECTS')}
         </Link>
 
         {project.image_url && (
@@ -48,7 +48,7 @@ export default function ProjectDetailClient({ project }: Props) {
           {project.github_url && (
             <a href={project.github_url} target="_blank"
               className="inline-flex items-center gap-2 font-mono text-[10px] tracking-widest px-6 py-3 border border-[rgba(255,255,255,0.15)] text-[rgba(255,255,255,0.4)] hover:border-[rgba(255,255,255,0.3)] hover:text-[rgba(255,255,255,0.7)] transition-all">
-              <span className='text-accent'><Github/> GitHub</span>
+              <span className='text-accent'><Github/></span>
             </a>
           )}
         </div>
