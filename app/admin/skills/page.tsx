@@ -43,7 +43,18 @@ export default function AdminSkills() {
     const isNew = !editingSkill?.id
     const url = isNew ? '/api/skills' : `/api/skills/${editingSkill!.id}`
     const res = await fetch(url, { method: isNew ? 'POST' : 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(editingSkill) })
-    if (res.ok) { toast.success(isNew ? 'Yetenek eklendi' : 'Güncellendi'); setEditingSkill(null); loadSkills() }
+    if (res.ok) {
+      // Yetenek öne çıkarılmışsa kategorisini de otomatik öne çıkar
+      if (editingSkill?.featured && editingSkill?.category_id) {
+        await fetch(`/api/skill-categories/${editingSkill.category_id}`, {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ featured: true })
+        })
+        loadCategories()
+      }
+      toast.success(isNew ? 'Yetenek eklendi' : 'Güncellendi'); setEditingSkill(null); loadSkills()
+    }
     else toast.error('Hata')
     setLoading(false)
   }
