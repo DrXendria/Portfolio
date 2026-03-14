@@ -4,10 +4,11 @@ import toast from 'react-hot-toast'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 import Textarea from '@/components/ui/Textarea'
+import { slugify } from '@/lib/utils'
 import { createBrowserSupabase } from '@/lib/supabase-browser'
 
-type Project = { id: string; title: string; title_en: string; description: string; description_en: string; long_description: string; long_description_en: string; tech_stack: string[]; live_url: string; github_url: string; image_url: string; featured: boolean; order_index: number }
-const empty = (): Partial<Project> => ({ title: '', title_en: '', description: '', description_en: '', long_description: '', long_description_en: '', tech_stack: [], live_url: '', github_url: '', image_url: '', featured: false, order_index: 0 })
+type Project = { id: string; slug: string; title: string; title_en: string; description: string; description_en: string; long_description: string; long_description_en: string; tech_stack: string[]; live_url: string; github_url: string; image_url: string; featured: boolean; order_index: number }
+const empty = (): Partial<Project> => ({ slug: '', title: '', title_en: '', description: '', description_en: '', long_description: '', long_description_en: '', tech_stack: [], live_url: '', github_url: '', image_url: '', featured: false, order_index: 0 })
 
 export default function AdminProjects() {
   const [projects, setProjects] = useState<Project[]>([])
@@ -64,8 +65,11 @@ export default function AdminProjects() {
       <h1 className="font-orbitron text-xl font-black text-[#e8f4f8] mb-8">{editing.id ? 'Projeyi Düzenle' : 'Yeni Proje'}</h1>
       <div className="space-y-4">
         <div className="grid grid-cols-2 gap-4">
-          <Input label="BAŞLIK (TR)" value={editing.title || ''} onChange={e => setEditing(p => ({...p!, title: e.target.value}))} />
+          <Input label="BAŞLIK (TR)" value={editing.title || ''} onChange={e => { const title = e.target.value; setEditing(p => ({...p!, title, slug: p?.slug || slugify(title)})) }} />
           <Input label="BAŞLIK (EN)" value={editing.title_en || ''} onChange={e => setEditing(p => ({...p!, title_en: e.target.value}))} />
+        </div>
+        <Input label="SLUG (URL)" value={editing.slug || ''} onChange={e => setEditing(p => ({...p!, slug: e.target.value}))} />
+        <div className="grid grid-cols-2 gap-4">
         </div>
         <div className="grid grid-cols-2 gap-4">
           <Textarea label="KISA AÇIKLAMA (TR)" value={editing.description || ''} onChange={e => setEditing(p => ({...p!, description: e.target.value}))} className="min-h-[80px]" />

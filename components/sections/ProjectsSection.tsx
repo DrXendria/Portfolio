@@ -2,8 +2,10 @@
 import Link from 'next/link'
 import SectionHeader from '@/components/ui/SectionHeader'
 import { useLocale } from '@/app/providers'
+import { Github } from 'lucide-react'
 
-type Project = { id: string; title: string; description: string; tech_stack: string[]; live_url: string; github_url: string; image_url: string; featured: boolean; order_index: number }
+
+type Project = { id: string; slug: string; title: string; description: string; tech_stack: string[]; live_url: string; github_url: string; image_url: string; featured: boolean; order_index: number }
 
 export default function ProjectsSection({ projects }: { projects: Project[] }) {
   const { locale } = useLocale()
@@ -14,7 +16,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
       <SectionHeader index={t('002 — PROJELER', '002 — PROJECTS')} title={t('Seçilmiş Çalışmalar', 'Selected Works')} />
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map(p => (
-          <Link key={p.id} href={`/projects/${p.id}`} className="border border-[rgba(0,212,255,0.15)] bg-[rgba(0,212,255,0.01)] hover:border-[rgba(0,212,255,0.45)] hover:-translate-y-1 transition-all duration-300 group overflow-hidden block">
+          <Link key={p.id} href={`/projects/${p.slug || p.id}`} className="border border-[rgba(0,212,255,0.15)] bg-[rgba(0,212,255,0.01)] hover:border-[rgba(0,212,255,0.45)] hover:-translate-y-1 transition-all duration-300 group overflow-hidden block">
             <div className="h-44 bg-[#030e1a] relative overflow-hidden">
               {p.image_url
                 ? <>
@@ -36,7 +38,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
               <p className="text-sm text-[rgba(232,244,248,0.45)] leading-relaxed mb-4">{p.description}</p>
               <div className="flex gap-4">
                 {p.live_url && <a href={p.live_url} target="_blank" className="font-mono text-[10px] text-accent hover:underline">→ {t('Canlı', 'Live')}</a>}
-                {p.github_url && <a href={p.github_url} target="_blank" className="font-mono text-[10px] text-[rgba(232,244,248,0.35)] hover:text-accent transition-colors">⌥ GitHub</a>}
+                {p.github_url && <a href={p.github_url} target="_blank" className="font-mono text-[10px] text-[rgba(232,244,248,0.35)] hover:text-accent transition-colors"><span className='text-accent'><Github/></span> </a>}
               </div>
             </div>
           </Link>
