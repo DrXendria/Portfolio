@@ -14,10 +14,16 @@ export default function AdminProjects() {
   const [editing, setEditing] = useState<Partial<Project> | null>(null)
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
+  const [techInput, setTechInput] = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
 
   const load = () => fetch('/api/projects').then(r => r.json()).then(setProjects)
   useEffect(() => { load() }, [])
+
+  useEffect(() => {
+    if (editing) setTechInput((editing.tech_stack || []).join(', '))
+    else setTechInput('')
+  }, [editing?.id])
 
   const uploadImage = async (file: File) => {
     setUploading(true)
@@ -74,8 +80,11 @@ export default function AdminProjects() {
           <input
             className="bg-[rgba(0,212,255,0.03)] border border-[rgba(0,212,255,0.15)] text-[#e8f4f8] px-4 py-3 text-sm outline-none transition-all duration-300 placeholder:text-[rgba(255,255,255,0.2)] focus:border-[rgba(0,212,255,0.5)]"
             placeholder="react, nextjs, typescript"
-            value={(editing.tech_stack || []).join(', ')}
-            onChange={e => setEditing(p => ({...p!, tech_stack: e.target.value.split(',').map(t => t.trim()).filter(Boolean)}))}
+            value={techInput}
+            onChange={e => {
+              setTechInput(e.target.value)
+              setEditing(p => ({...p!, tech_stack: e.target.value.split(',').map(t => t.trim()).filter(Boolean)}))
+            }}
           />
         </div>
         <Input label="CANLI URL" value={editing.live_url || ''} onChange={e => setEditing(p => ({...p!, live_url: e.target.value}))} />

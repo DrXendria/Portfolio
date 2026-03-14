@@ -18,9 +18,15 @@ export default function AdminBlog() {
   const [loading, setLoading] = useState(false)
   const [uploading, setUploading] = useState(false)
   const [activeLang, setActiveLang] = useState<'tr' | 'en'>('tr')
+  const [tagsInput, setTagsInput] = useState('')
   const fileRef = useRef<HTMLInputElement>(null)
 
   const load = () => fetch('/api/blog').then(r => r.json()).then(setPosts)
+
+  useEffect(() => {
+    if (editing) setTagsInput((editing.tags || []).join(', '))
+    else setTagsInput('')
+  }, [editing?.id])
   useEffect(() => { load() }, [])
 
   const uploadImage = async (file: File) => {
@@ -121,7 +127,7 @@ export default function AdminBlog() {
           <label className="font-mono text-[9px] tracking-[4px] text-accent opacity-60">ETİKETLER (virgülle ayır)</label>
           <input
             className="bg-[rgba(0,212,255,0.03)] border border-[rgba(0,212,255,0.15)] text-[#e8f4f8] px-4 py-3 text-sm outline-none transition-all duration-300 placeholder:text-[rgba(255,255,255,0.2)] focus:border-[rgba(0,212,255,0.5)]"
-            placeholder="react, nextjs, typescript"
+            placeholder="siber güvenlik, web, linux"
             value={(editing.tags || []).join(', ')}
             onChange={e => setEditing(p => ({...p!, tags: e.target.value.split(',').map(t => t.trim()).filter(Boolean)}))}
           />
