@@ -1,7 +1,7 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextRequest, NextResponse } from 'next/server'
 
-const sectionRoutes = ['/about', '/projects', '/blog', '/skills', '/contact']
+const sectionRoutes = ['/about', '/blog', '/skills', '/contact']
 
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next()
@@ -33,4 +33,4 @@ export async function middleware(req: NextRequest) {
   return res
 }
 
-export const config = { matcher: ['/admin/:path*', '/about', '/projects', '/blog', '/skills', '/contact'] }
+export const config = { matcher: ['/admin/:path*', '/about', '/blog', '/skills', '/contact'] }

@@ -1,4 +1,5 @@
 'use client'
+import Link from 'next/link'
 import SectionHeader from '@/components/ui/SectionHeader'
 import { useLocale } from '@/app/providers'
 
@@ -13,7 +14,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
       <SectionHeader index={t('002 — PROJELER', '002 — PROJECTS')} title={t('Seçilmiş Çalışmalar', 'Selected Works')} />
       <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
         {projects.map(p => (
-          <div key={p.id} className="border border-[rgba(0,212,255,0.15)] bg-[rgba(0,212,255,0.01)] hover:border-[rgba(0,212,255,0.45)] hover:-translate-y-1 transition-all duration-300 group overflow-hidden">
+          <Link key={p.id} href={`/projects/${p.id}`} className="border border-[rgba(0,212,255,0.15)] bg-[rgba(0,212,255,0.01)] hover:border-[rgba(0,212,255,0.45)] hover:-translate-y-1 transition-all duration-300 group overflow-hidden block">
             <div className="h-44 bg-[#030e1a] relative overflow-hidden">
               {p.image_url
                 ? <>
@@ -38,7 +39,7 @@ export default function ProjectsSection({ projects }: { projects: Project[] }) {
                 {p.github_url && <a href={p.github_url} target="_blank" className="font-mono text-[10px] text-[rgba(232,244,248,0.35)] hover:text-accent transition-colors">⌥ GitHub</a>}
               </div>
             </div>
-          </div>
+          </Link>
         ))}
       </div>
     </section>
