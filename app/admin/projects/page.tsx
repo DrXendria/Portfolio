@@ -69,7 +69,15 @@ export default function AdminProjects() {
           <Textarea label="UZUN AÇIKLAMA (TR)" value={editing.long_description || ''} onChange={e => setEditing(p => ({...p!, long_description: e.target.value}))} />
           <Textarea label="UZUN AÇIKLAMA (EN)" value={editing.long_description_en || ''} onChange={e => setEditing(p => ({...p!, long_description_en: e.target.value}))} />
         </div>
-        <Input label="TEKNOLOJİLER (virgülle ayır)" value={(editing.tech_stack || []).join(', ')} onChange={e => setEditing(p => ({...p!, tech_stack: e.target.value.split(',').map(t => t.trim()).filter(Boolean)}))} />
+        <div className="flex flex-col gap-1.5">
+          <label className="font-mono text-[9px] tracking-[4px] text-accent opacity-60">TEKNOLOJİLER (virgülle ayır)</label>
+          <input
+            className="bg-[rgba(0,212,255,0.03)] border border-[rgba(0,212,255,0.15)] text-[#e8f4f8] px-4 py-3 text-sm outline-none transition-all duration-300 placeholder:text-[rgba(255,255,255,0.2)] focus:border-[rgba(0,212,255,0.5)]"
+            placeholder="react, nextjs, typescript"
+            value={(editing.tech_stack || []).join(', ')}
+            onChange={e => setEditing(p => ({...p!, tech_stack: e.target.value.split(',').map(t => t.trim()).filter(Boolean)}))}
+          />
+        </div>
         <Input label="CANLI URL" value={editing.live_url || ''} onChange={e => setEditing(p => ({...p!, live_url: e.target.value}))} />
         <Input label="GITHUB URL" value={editing.github_url || ''} onChange={e => setEditing(p => ({...p!, github_url: e.target.value}))} />
 

@@ -117,7 +117,15 @@ export default function AdminBlog() {
           </button>
         </div>
 
-        <Input label="ETİKETLER (virgülle ayır)" value={(editing.tags || []).join(', ')} onChange={e => setEditing(p => ({...p!, tags: e.target.value.split(',').map(t => t.trim()).filter(Boolean)}))} />
+        <div className="flex flex-col gap-1.5">
+          <label className="font-mono text-[9px] tracking-[4px] text-accent opacity-60">ETİKETLER (virgülle ayır)</label>
+          <input
+            className="bg-[rgba(0,212,255,0.03)] border border-[rgba(0,212,255,0.15)] text-[#e8f4f8] px-4 py-3 text-sm outline-none transition-all duration-300 placeholder:text-[rgba(255,255,255,0.2)] focus:border-[rgba(0,212,255,0.5)]"
+            placeholder="react, nextjs, typescript"
+            value={(editing.tags || []).join(', ')}
+            onChange={e => setEditing(p => ({...p!, tags: e.target.value.split(',').map(t => t.trim()).filter(Boolean)}))}
+          />
+        </div>
         <label className="flex items-center gap-3 font-mono text-[10px] tracking-[3px] text-[rgba(232,244,248,0.5)] cursor-pointer">
           <input type="checkbox" checked={editing.published || false} onChange={e => setEditing(p => ({...p!, published: e.target.checked}))} className="accent-[#00d4ff]" />
           YAYINLA
