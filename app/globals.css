@@ -35,7 +35,7 @@ body {
   overflow-x: hidden;
   cursor: none;
 }
-body * { cursor: none !important; }
+body *:not(input):not(textarea) { cursor: none !important; }
 
 /* Scrollbar */
 ::-webkit-scrollbar { width: 4px; }
