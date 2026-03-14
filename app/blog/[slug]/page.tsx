@@ -15,7 +15,7 @@ export default async function BlogPostPage({ params }: { params: { slug: string 
       <CyberGrid />
       <Navbar />
       <article className="relative z-10 max-w-3xl mx-auto px-6 pt-28 pb-24">
-        <Link href="/#blog" className="font-mono text-[10px] tracking-[3px] text-accent opacity-60 hover:opacity-100 transition-opacity mb-8 block">← BLOG'A DÖN</Link>
+        <Link href="/blogpage" className="font-mono text-[10px] tracking-[3px] text-accent opacity-60 hover:opacity-100 transition-opacity mb-8 block">← BLOG'A DÖN</Link>
         <div className="flex flex-wrap gap-2 mb-6">
           {(post as any).tags?.map((t: string) => (
             <span key={t} className="font-mono text-[8px] tracking-[2px] px-2.5 py-1 border border-[rgba(0,212,255,0.2)] text-accent opacity-70">{t}</span>

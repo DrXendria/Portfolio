@@ -4,6 +4,7 @@ import Navbar from '@/components/sections/Navbar'
 import CyberGrid from '@/components/ui/CyberGrid'
 import { useLocale } from '@/app/providers'
 import { Github } from 'lucide-react'
+
 type Props = { project: any }
 
 export default function ProjectDetailClient({ project }: Props) {
@@ -18,7 +19,7 @@ export default function ProjectDetailClient({ project }: Props) {
       <CyberGrid />
       <Navbar />
       <article className="relative z-10 max-w-3xl mx-auto px-6 pt-28 pb-24">
-        <Link href="/#projects" className="font-mono text-[10px] tracking-[3px] text-accent opacity-60 hover:opacity-100 transition-opacity mb-8 block">
+        <Link href="/projectspage" className="font-mono text-[10px] tracking-[3px] text-accent opacity-60 hover:opacity-100 transition-opacity mb-8 block">
           ← {t('PROJELERE DÖN', 'BACK TO PROJECTS')}
         </Link>
 

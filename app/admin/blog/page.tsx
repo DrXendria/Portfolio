@@ -128,8 +128,11 @@ export default function AdminBlog() {
           <input
             className="bg-[rgba(0,212,255,0.03)] border border-[rgba(0,212,255,0.15)] text-[#e8f4f8] px-4 py-3 text-sm outline-none transition-all duration-300 placeholder:text-[rgba(255,255,255,0.2)] focus:border-[rgba(0,212,255,0.5)]"
             placeholder="siber güvenlik, web, linux"
-            value={(editing.tags || []).join(', ')}
-            onChange={e => setEditing(p => ({...p!, tags: e.target.value.split(',').map(t => t.trim()).filter(Boolean)}))}
+            value={tagsInput}
+            onChange={e => {
+              setTagsInput(e.target.value)
+              setEditing(p => ({...p!, tags: e.target.value.split(',').map(t => t.trim()).filter(Boolean)}))
+            }}
           />
         </div>
         <label className="flex items-center gap-3 font-mono text-[10px] tracking-[3px] text-[rgba(232,244,248,0.5)] cursor-pointer">
