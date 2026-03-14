@@ -17,8 +17,8 @@ export default function AdminSkills() {
   const [editingSkill, setEditingSkill] = useState<Partial<Skill> | null>(null)
   const [loading, setLoading] = useState(false)
 
-  const loadCategories = () => fetch('/api/skill-categories').then(r => r.json()).then(setCategories)
-  const loadSkills = () => fetch('/api/skills').then(r => r.json()).then(setSkills)
+  const loadCategories = async () => { const data = await fetch('/api/skill-categories').then(r => r.json()); setCategories(data) }
+  const loadSkills = async () => { const data = await fetch('/api/skills').then(r => r.json()); setSkills(data) }
 
   useEffect(() => { loadCategories(); loadSkills() }, [])
 
@@ -51,11 +51,14 @@ export default function AdminSkills() {
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ featured: true })
         })
-        loadCategories()
+        await loadCategories()
       }
-      toast.success(isNew ? 'Yetenek eklendi' : 'Güncellendi'); setEditingSkill(null); loadSkills()
+      toast.success(isNew ? 'Yetenek eklendi' : 'Güncellendi')
+      setEditingSkill(null)
+      await loadSkills()
+    } else {
+      toast.error('Hata')
     }
-    else toast.error('Hata')
     setLoading(false)
   }
 
