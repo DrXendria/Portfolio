@@ -13,28 +13,25 @@ import ContactSection from '@/components/sections/ContactSection'
 type Props = {
   projects: any[]
   posts: any[]
+  categories: any[]
   skills: any[]
   config: Record<string, string>
 }
 
 const sections = ['hero', 'about', 'projects', 'blog', 'skills', 'contact']
 
-export default function HomeClient({ projects, posts, skills, config }: Props) {
+export default function HomeClient({ projects, posts, categories, skills, config }: Props) {
   const { locale } = useLocale()
 
-  // Scroll pozisyonuna göre URL güncelle
   useEffect(() => {
-    // Sayfa yüklenince URL'deki path veya query param'dan section'a scroll et
     const params = new URLSearchParams(window.location.search)
     const section = params.get('section') || window.location.pathname.replace('/', '') || 'hero'
     const el = document.getElementById(section)
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' })
-      // Query param'ı temizle, URL'i düzelt
       window.history.replaceState(null, '', section === 'hero' ? '/' : `/${section}`)
     }
 
-    // IntersectionObserver ile aktif section'ı takip et
     const observers: IntersectionObserver[] = []
     sections.forEach(id => {
       const el = document.getElementById(id)
@@ -57,8 +54,6 @@ export default function HomeClient({ projects, posts, skills, config }: Props) {
 
   const localizedConfig = {
     ...config,
-    hero_name: config.hero_name,
-    hero_surname: config.hero_surname,
     hero_title: locale === 'en' ? (config.hero_title_en || config.hero_title) : config.hero_title,
     hero_desc: locale === 'en' ? (config.hero_desc_en || config.hero_desc) : config.hero_desc,
     about_text: locale === 'en' ? (config.about_text_en || config.about_text) : config.about_text,
@@ -79,11 +74,6 @@ export default function HomeClient({ projects, posts, skills, config }: Props) {
     content: locale === 'en' ? (p.content_en || p.content) : p.content,
   }))
 
-  const localizedSkills = skills.map(s => ({
-    ...s,
-    category: locale === 'en' ? (s.category_en || s.category) : s.category,
-  }))
-
   return (
     <main className="relative">
       <div className="fixed top-0 right-0 w-[500px] h-[500px] rounded-full pointer-events-none z-0"
@@ -96,10 +86,10 @@ export default function HomeClient({ projects, posts, skills, config }: Props) {
       <div id="about"><AboutSection config={localizedConfig} /></div>
       <div id="projects"><ProjectsSection projects={localizedProjects} /></div>
       <div id="blog"><BlogSection posts={localizedPosts} /></div>
-      <div id="skills"><SkillsSection skills={localizedSkills} /></div>
+      <div id="skills"><SkillsSection categories={categories} skills={skills} /></div>
       <div id="contact"><ContactSection config={localizedConfig} /></div>
       <footer className="relative z-10 border-t border-[rgba(0,212,255,0.1)] px-6 md:px-20 py-8 flex justify-between items-center flex-wrap gap-4">
-        <p className="font-mono text-[10px] tracking-[2px] text-[rgba(232,244,248,0.25)]">© 2026 {localizedConfig.hero_name} {localizedConfig.hero_surname}</p>
+        <p className="font-mono text-[10px] tracking-[2px] text-[rgba(232,244,248,0.25)]">© 2026 {config.hero_name} {config.hero_surname}</p>
         <p className="font-mono text-[10px] tracking-[2px] text-[rgba(0,212,255,0.25)]">Designed by DrXendria</p>
       </footer>
     </main>
