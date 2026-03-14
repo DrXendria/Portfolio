@@ -1,5 +1,5 @@
 import { createServerSupabase } from '@/lib/supabase-server'
-import ContactClient from '../contact/ContactClient'
+import ContactClient from './ContactClient'
 
 export const revalidate = 60
 

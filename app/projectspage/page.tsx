@@ -1,5 +1,5 @@
 import { createServerSupabase } from '@/lib/supabase-server'
-import ProjectsClient from '../projects/ProjectsClient'
+import ProjectsClient from './ProjectsClient'
 
 export const revalidate = 60
 
