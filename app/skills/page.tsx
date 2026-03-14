@@ -1,0 +1,10 @@
+import { createServerSupabase } from '@/lib/supabase-server'
+import SkillsClient from './SkillsClient'
+
+export const revalidate = 60
+
+export default async function SkillsPage() {
+  const sb = createServerSupabase()
+  const { data: skills } = await sb.from('skills').select('*').order('order_index')
+  return <SkillsClient skills={skills || []} />
+}

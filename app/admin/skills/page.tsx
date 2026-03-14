@@ -4,8 +4,8 @@ import toast from 'react-hot-toast'
 import Button from '@/components/ui/Button'
 import Input from '@/components/ui/Input'
 
-type Skill = { id: string; name: string; name_en: string; category: string; category_en: string; level: number; order_index: number; icon: string }
-const empty = (): Partial<Skill> => ({ name: '', name_en: '', category: '', category_en: '', level: 80, order_index: 0, icon: '⚡' })
+type Skill = { id: string; name: string; name_en: string; category: string; category_en: string; level: number; order_index: number; icon: string; featured: boolean }
+const empty = (): Partial<Skill> => ({ name: '', name_en: '', category: '', category_en: '', level: 80, order_index: 0, icon: '⚡', featured: false })
 
 export default function AdminSkills() {
   const [skills, setSkills] = useState<Skill[]>([])
@@ -61,6 +61,10 @@ export default function AdminSkills() {
             <Input label="SEVİYE (0-100)" type="number" min={0} max={100} value={editing.level ?? 80} onChange={e => setEditing(p => ({...p!, level: +e.target.value}))} />
             <Input label="SIRA" type="number" value={editing.order_index ?? 0} onChange={e => setEditing(p => ({...p!, order_index: +e.target.value}))} />
           </div>
+          <label className="flex items-center gap-3 font-mono text-[10px] tracking-[3px] text-[rgba(232,244,248,0.5)] cursor-pointer mt-4">
+            <input type="checkbox" checked={editing.featured || false} onChange={e => setEditing(p => ({...p!, featured: e.target.checked}))} className="accent-[#00d4ff]" />
+            ÖNE ÇIKAR (Ana sayfada göster)
+          </label>
           <div className="flex gap-3 mt-4">
             <Button onClick={save} disabled={loading} size="sm">{loading ? '...' : 'KAYDET'}</Button>
             <Button variant="ghost" size="sm" onClick={() => setEditing(null)}>İPTAL</Button>
@@ -92,6 +96,7 @@ export default function AdminSkills() {
                       <div className="h-full bg-accent" style={{ width: `${s.level}%` }} />
                     </div>
                   </div>
+                  {s.featured && <span className="font-mono text-[8px] tracking-[2px] px-2 py-0.5 text-accent border border-accent opacity-70">ÖNE ÇIKAR</span>}
                   <Button size="sm" onClick={() => setEditing(s)}>Düzenle</Button>
                   <Button size="sm" variant="danger" onClick={() => del(s.id)}>Sil</Button>
                 </div>

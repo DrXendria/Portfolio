@@ -9,8 +9,8 @@ import { createBrowserSupabase } from '@/lib/supabase-browser'
 
 const RichEditor = dynamic(() => import('@/components/admin/RichEditor'), { ssr: false, loading: () => <div className="border border-[rgba(0,212,255,0.15)] h-64 flex items-center justify-center font-mono text-xs text-accent opacity-40">Editor yükleniyor...</div> })
 
-type Post = { id: string; title: string; title_en: string; slug: string; excerpt: string; excerpt_en: string; content: string; content_en: string; tags: string[]; published: boolean; published_at: string; cover_image: string }
-const empty = (): Partial<Post> => ({ title: '', title_en: '', slug: '', excerpt: '', excerpt_en: '', content: '', content_en: '', tags: [], published: false, cover_image: '' })
+type Post = { id: string; title: string; title_en: string; slug: string; excerpt: string; excerpt_en: string; content: string; content_en: string; tags: string[]; published: boolean; featured: boolean; published_at: string; cover_image: string }
+const empty = (): Partial<Post> => ({ title: '', title_en: '', slug: '', excerpt: '', excerpt_en: '', content: '', content_en: '', tags: [], published: false, featured: false, cover_image: '' })
 
 export default function AdminBlog() {
   const [posts, setPosts] = useState<Post[]>([])
@@ -136,6 +136,10 @@ export default function AdminBlog() {
           <input type="checkbox" checked={editing.published || false} onChange={e => setEditing(p => ({...p!, published: e.target.checked}))} className="accent-[#00d4ff]" />
           YAYINLA
         </label>
+        <label className="flex items-center gap-3 font-mono text-[10px] tracking-[3px] text-[rgba(232,244,248,0.5)] cursor-pointer">
+          <input type="checkbox" checked={editing.featured || false} onChange={e => setEditing(p => ({...p!, featured: e.target.checked}))} className="accent-[#00d4ff]" />
+          ÖNE ÇIKAR (Ana sayfada göster)
+        </label>
         <div className="flex gap-3 pt-2">
           <Button onClick={save} disabled={loading || uploading}>{loading ? 'KAYDEDİLİYOR...' : 'KAYDET'}</Button>
           <Button variant="ghost" onClick={() => setEditing(null)}>İPTAL</Button>
@@ -167,6 +171,7 @@ export default function AdminBlog() {
                   <span className={`font-mono text-[8px] tracking-[2px] px-2 py-0.5 ${p.published ? 'text-green-400 border-green-400' : 'text-yellow-400 border-yellow-400'} border opacity-70`}>
                     {p.published ? 'YAYINDA' : 'TASLAK'}
                   </span>
+                  {p.featured && <span className="font-mono text-[8px] tracking-[2px] px-2 py-0.5 text-accent border border-accent opacity-70">ÖNE ÇIKAR</span>}
                 </div>
                 <p className="font-mono text-[9px] text-[rgba(232,244,248,0.3)] mt-1">{p.published_at ? formatDate(p.published_at) : '—'} · /{p.slug}</p>
               </div>
