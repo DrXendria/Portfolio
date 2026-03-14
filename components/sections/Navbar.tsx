@@ -101,7 +101,7 @@ export default function Navbar() {
       {menuOpen && (
         <div className="fixed top-16 left-0 right-0 z-40 bg-[rgba(2,11,20,0.97)] border-b border-[rgba(0,212,255,0.12)] md:hidden">
           {links[locale].map(l => (
-            <Link key={l.href} href={l.href} onClick={e => handleClick(e, l.section)}
+            <Link key={l.href} href={l.href} onClick={() => setMenuOpen(false)}
               className="block px-8 py-4 font-mono text-[11px] tracking-[3px] text-[rgba(232,244,248,0.45)] hover:text-accent hover:bg-[rgba(0,212,255,0.03)] transition-all border-b border-[rgba(0,212,255,0.06)]">
               {l.label}
             </Link>
