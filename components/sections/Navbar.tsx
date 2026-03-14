@@ -49,11 +49,11 @@ export default function Navbar() {
           style={{ mixBlendMode: 'lighten', filter: 'drop-shadow(0 0 6px rgba(0,212,255,0.3))' }} />
       </Link>
 
-      <ul className="hidden md:flex gap-8">
+      <ul className="flex gap-3 md:gap-8">
         {links[locale].map(l => (
           <li key={l.href}>
             <Link href={l.href} onClick={e => handleClick(e, l.section)}
-              className="font-mono text-[11px] tracking-[3px] text-[rgba(232,244,248,0.45)] hover:text-accent transition-colors duration-300 relative group">
+              className="font-mono text-[8px] md:text-[11px] tracking-[1px] md:tracking-[3px] text-[rgba(232,244,248,0.45)] hover:text-accent transition-colors duration-300 relative group">
               {l.label}
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-accent shadow-neon-sm group-hover:w-full transition-all duration-300" />
             </Link>
