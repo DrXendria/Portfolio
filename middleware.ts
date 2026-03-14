@@ -1,9 +1,16 @@
 import { createServerClient } from '@supabase/ssr'
 import { NextRequest, NextResponse } from 'next/server'
 
+const sectionRoutes = ['/about', '/projects', '/blog', '/skills', '/contact']
+
 export async function middleware(req: NextRequest) {
   const res = NextResponse.next()
   const pathname = req.nextUrl.pathname
+
+  // Scroll URL'lerini ana sayfaya yönlendir
+  if (sectionRoutes.includes(pathname)) {
+    return NextResponse.redirect(new URL(`/?section=${pathname.slice(1)}`, req.url))
+  }
 
   if (!pathname.startsWith('/admin') || pathname === '/admin/login') return res
 
@@ -26,4 +33,4 @@ export async function middleware(req: NextRequest) {
   return res
 }
 
-export const config = { matcher: ['/admin/:path*'] }
+export const config = { matcher: ['/admin/:path*', '/about', '/projects', '/blog', '/skills', '/contact'] }

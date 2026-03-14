@@ -6,18 +6,18 @@ import { useLocale } from '@/app/providers'
 
 const links = {
   tr: [
-    { href: '/about', label: 'Hakkımda', section: 'about' },
-    { href: '/projects', label: 'Projeler', section: 'projects' },
-    { href: '/blog', label: 'Blog', section: 'blog' },
-    { href: '/skills', label: 'Yetenekler', section: 'skills' },
-    { href: '/contact', label: 'İletişim', section: 'contact' },
+    { href: '/aboutpage', label: 'Hakkımda', section: 'about' },
+    { href: '/projectspage', label: 'Projeler', section: 'projects' },
+    { href: '/blogpage', label: 'Blog', section: 'blog' },
+    { href: '/skillspage', label: 'Yetenekler', section: 'skills' },
+    { href: '/contactpage', label: 'İletişim', section: 'contact' },
   ],
   en: [
-    { href: '/about', label: 'About', section: 'about' },
-    { href: '/projects', label: 'Projects', section: 'projects' },
-    { href: '/blog', label: 'Blog', section: 'blog' },
-    { href: '/skills', label: 'Skills', section: 'skills' },
-    { href: '/contact', label: 'Contact', section: 'contact' },
+    { href: '/aboutpage', label: 'About', section: 'about' },
+    { href: '/projectspage', label: 'Projects', section: 'projects' },
+    { href: '/blogpage', label: 'Blog', section: 'blog' },
+    { href: '/skillspage', label: 'Skills', section: 'skills' },
+    { href: '/contactpage', label: 'Contact', section: 'contact' },
   ],
 }
 
@@ -33,7 +33,7 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', onScroll)
   }, [])
 
-  const handleHomeClick = (e: React.MouseEvent, section: string) => {
+  const handleClick = (e: React.MouseEvent, section: string) => {
     if (isHome) {
       e.preventDefault()
       const el = document.getElementById(section)
@@ -52,7 +52,7 @@ export default function Navbar() {
       <ul className="hidden md:flex gap-8">
         {links[locale].map(l => (
           <li key={l.href}>
-            <Link href={l.href} onClick={e => handleHomeClick(e, l.section)}
+            <Link href={l.href} onClick={e => handleClick(e, l.section)}
               className="font-mono text-[11px] tracking-[3px] text-[rgba(232,244,248,0.45)] hover:text-accent transition-colors duration-300 relative group">
               {l.label}
               <span className="absolute -bottom-1 left-0 w-0 h-px bg-accent shadow-neon-sm group-hover:w-full transition-all duration-300" />
