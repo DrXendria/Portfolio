@@ -3,7 +3,8 @@ import './globals.css'
 import { Toaster } from 'react-hot-toast'
 import CustomCursor from '@/components/ui/CustomCursor'
 import { LocaleProvider } from './providers'
-
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 export const metadata: Metadata = {
   title: {
     default: 'Emir Cica',
@@ -35,6 +36,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               },
             }}
           />
+          <Analytics />
+          <SpeedInsights />
         </LocaleProvider>
       </body>
     </html>
